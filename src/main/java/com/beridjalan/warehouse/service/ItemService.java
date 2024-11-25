@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ItemService {
-    List<Item> findAllItems();
+    List<Item> findAllActiveItems();
     Item findItemById(Long id);
     Item createOneItem(Item item);
     Item updateOneItem(Long id, Item item);

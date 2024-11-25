@@ -18,7 +18,7 @@ public class ItemPresenter {
 
     @GetMapping
     public String getAllItems(Model model) {
-        model.addAttribute("items", itemService.findAllItems());
+        model.addAttribute("items", itemService.findAllActiveItems());
         return "index";
     }
 
