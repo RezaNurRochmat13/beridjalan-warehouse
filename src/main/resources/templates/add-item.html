@@ -2,17 +2,56 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Add Item</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-<h1>Add New Item</h1>
-<form th:action="@{/save}" th:object="${item}" method="post">
-    <label>Name:</label>
-    <input type="text" th:field="*{name}" required>
-    <label>Description:</label>
-    <input type="description" th:field="*{description}">
-    <label>Quantity:</label>
-    <input type="quantity" th:field="*{quantity}">
-    <button type="submit">Save</button>
-</form>
+<body class="bg-gray-100 p-6">
+<div class="container mx-auto max-w-lg">
+    <!-- Page Title -->
+    <h1 class="text-3xl font-bold text-center mb-8 text-gray-800">Add New Item</h1>
+
+    <!-- Form -->
+    <form th:action="@{/save}" th:object="${item}" method="post" class="bg-white p-6 rounded shadow-md">
+        <!-- Name Field -->
+        <div class="mb-4">
+            <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+            <input
+                    type="text"
+                    id="name"
+                    th:field="*{name}"
+                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200"
+                    required>
+        </div>
+
+        <!-- Description Field -->
+        <div class="mb-4">
+            <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
+            <textarea
+                    id="description"
+                    th:field="*{description}"
+                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200"
+                    rows="3"></textarea>
+        </div>
+
+        <!-- Quantity Field -->
+        <div class="mb-4">
+            <label for="quantity" class="block text-sm font-medium text-gray-700">Quantity</label>
+            <input
+                    type="number"
+                    id="quantity"
+                    th:field="*{quantity}"
+                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200"
+                    min="1">
+        </div>
+
+        <!-- Submit Button -->
+        <div class="flex justify-end">
+            <button
+                    type="submit"
+                    class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-200">
+                Save
+            </button>
+        </div>
+    </form>
+</div>
 </body>
 </html>

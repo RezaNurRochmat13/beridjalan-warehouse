@@ -2,36 +2,54 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>CRUD Example</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-<h1>Item List</h1>
-<a href="/add">Add New Item</a>
-<table border="1">
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Quantity</th>
-        <th>Created At</th>
-        <th>Updated At</th>
-        <th>Actions</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="item : ${items}">
-        <td th:text="${item.id}"></td>
-        <td th:text="${item.name}"></td>
-        <td th:text="${item.description}"></td>
-        <td th:text="${item.quantity}"></td>
-        <td th:text="${item.createdAt}"></td>
-        <td th:text="${item.updatedAt}"></td>
-        <td>
-            <a th:href="@{/edit/{id}(id=${item.id})}">Edit</a>
-            <a th:href="@{/delete/{id}(id=${item.id})}" onclick="return confirm('Are you sure?')">Delete</a>
-        </td>
-    </tr>
-    </tbody>
-</table>
+<body class="bg-gray-100 p-6">
+<div class="container mx-auto">
+    <!-- Page Title -->
+    <h1 class="text-3xl font-bold text-center mb-8 text-gray-800">Item List</h1>
+
+    <!-- Add Item Button -->
+    <div class="flex justify-end mb-4">
+        <a href="/add"
+           class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+            Add New Item
+        </a>
+    </div>
+
+    <!-- Table -->
+    <div class="overflow-x-auto">
+        <table class="table-auto w-full bg-white shadow-md rounded border border-gray-200">
+            <thead class="bg-gray-200">
+            <tr>
+                <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600">ID</th>
+                <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600">Name</th>
+                <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600">Description</th>
+                <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600">Quantity</th>
+                <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600">Created At</th>
+                <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600">Updated At</th>
+                <th class="px-4 py-2 text-left text-sm font-semibold text-gray-600">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="item : ${items}" class="border-t">
+                <td class="px-4 py-2 text-sm text-gray-700" th:text="${item.id}"></td>
+                <td class="px-4 py-2 text-sm text-gray-700" th:text="${item.name}"></td>
+                <td class="px-4 py-2 text-sm text-gray-700" th:text="${item.description}"></td>
+                <td class="px-4 py-2 text-sm text-gray-700" th:text="${item.quantity}"></td>
+                <td class="px-4 py-2 text-sm text-gray-700" th:text="${item.createdAt}"></td>
+                <td class="px-4 py-2 text-sm text-gray-700" th:text="${item.updatedAt}"></td>
+                <td class="px-4 py-2 text-sm text-gray-700 flex space-x-2">
+                    <a th:href="@{/edit/{id}(id=${item.id})}"
+                       class="text-blue-500 hover:text-blue-700">Edit</a>
+                    <a th:href="@{/delete/{id}(id=${item.id})}"
+                       class="text-red-500 hover:text-red-700"
+                       onclick="return confirm('Are you sure?')">Delete</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 </body>
 </html>
