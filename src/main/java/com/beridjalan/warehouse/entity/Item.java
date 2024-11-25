@@ -42,7 +42,7 @@ public class Item implements Serializable {
     @LastModifiedDate
     private Date updatedAt;
 
-    @Column(nullable = false)
+    @Column(name = "deletedAt")
     private Date deletedAt;
 
 }

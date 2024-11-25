@@ -6,6 +6,7 @@ import com.beridjalan.warehouse.repository.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,10 +21,9 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public Optional<Item> findItemById(Long id) {
-        return Optional.ofNullable(itemRepository
-                .findById(id)
-                .orElseThrow(() -> new ResourceNotFound("Item not found with id :" + id)));
+    public Item findItemById(Long id) {
+        return itemRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFound("Item not found with id :" + id));
     }
 
     @Override
@@ -50,5 +50,7 @@ public class ItemServiceImpl implements ItemService {
         Item item = itemRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFound("Item not found with id :" + id));
 
+        item.setDeletedAt(new Date());
+        itemRepository.delete(item);
     }
 }

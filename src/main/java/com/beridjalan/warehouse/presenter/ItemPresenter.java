@@ -4,45 +4,57 @@ import com.beridjalan.warehouse.entity.Item;
 import com.beridjalan.warehouse.service.ItemServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
 
-@RestController
-@RequestMapping("api/v1/")
+@Controller
 public class ItemPresenter {
 
     @Autowired
     private ItemServiceImpl itemService;
 
-    @GetMapping("items")
-    @ResponseStatus(HttpStatus.OK)
-    public List<Item> getAllItems() {
-        return itemService.findAllItems();
+    @GetMapping
+    public String getAllItems(Model model) {
+        model.addAttribute("items", itemService.findAllItems());
+        return "index";
     }
 
     @GetMapping("items/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Optional<Item> getItemById(@PathVariable Long id) {
+    public Item getItemById(@PathVariable Long id) {
         return itemService.findItemById(id);
     }
 
-    @PostMapping("items")
-    @ResponseStatus(HttpStatus.CREATED)
-    public Item createOneItem(@RequestBody Item payload) {
-        return itemService.createOneItem(payload);
+    @GetMapping("/add")
+    public String addItemForm(Model model) {
+        model.addAttribute("item", new Item());
+        return "add-item";
     }
 
-    @PutMapping("items/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public Item updateOneItem(@PathVariable Long id, @RequestBody Item payload) {
-        return itemService.updateOneItem(id, payload);
+    @PostMapping("/save")
+    public String createOneItem(@ModelAttribute Item payload) {
+        itemService.createOneItem(payload);
+        return "redirect:/";
     }
 
-    @DeleteMapping("items/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteOneItem(@PathVariable Long id) {
+    @GetMapping("/edit/{id}")
+    public String editItemForm(@PathVariable Long id, Model model) {
+        model.addAttribute("item", itemService.findItemById(id));
+        return "update-item"; // Renders update-user.html
+    }
+
+    @PostMapping("/update/{id}")
+    public String updateOneItem(@PathVariable Long id, @ModelAttribute Item payload) {
+        itemService.updateOneItem(id, payload);
+        return "redirect:/";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteOneItem(@PathVariable Long id) {
         itemService.deleteOneItem(id);
+        return "redirect:/";
     }
 }

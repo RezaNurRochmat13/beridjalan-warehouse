@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>CRUD Example</title>
+</head>
+<body>
+<h1>Item List</h1>
+<a href="/add">Add New Item</a>
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Quantity</th>
+        <th>Created At</th>
+        <th>Updated At</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="item : ${items}">
+        <td th:text="${item.id}"></td>
+        <td th:text="${item.name}"></td>
+        <td th:text="${item.description}"></td>
+        <td th:text="${item.quantity}"></td>
+        <td th:text="${item.createdAt}"></td>
+        <td th:text="${item.updatedAt}"></td>
+        <td>
+            <a th:href="@{/edit/{id}(id=${item.id})}">Edit</a>
+            <a th:href="@{/delete/{id}(id=${item.id})}" onclick="return confirm('Are you sure?')">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
