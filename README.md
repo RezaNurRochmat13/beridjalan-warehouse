@@ -15,6 +15,8 @@ Beridjalan Warehouse is application to manage data warehouse from manufacture.
 - Spring Boot Hibernate
 - Lombok
 - Thymeleaf
+- PostgreSQL
+- Tailwind CSS
 
 # Contributors
 - Reja Nur Rochmat <rezanurrochmat@gmail.com>
